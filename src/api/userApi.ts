@@ -9,26 +9,9 @@ interface SignupData {
   password: string;
 }
 
-export const signupUser = async (fullname:string, username: string, email: string, password: string) => {
-  try {
-    console.log('Sending signup request:', { username, email });
-    
-    const response = await axiosInstance.post('/user/signup', {
-      username,
-      email,
-      password,
-      fullname
-    });
-    
-    return response;
-  } catch (error: any) {
-    console.error('Signup Error Details:', {
-      message: error?.message,
-      status: error?.response?.status,
-      data: error?.response?.data,
-    });
-    throw error;
-  }
+export const signupUser = async (data: SignupData) => {
+  const response = await axios.post('/api/auth/signup', data);
+  return response.data;
 };
 
 export const loginUser = async (username: string, password: string) => {
