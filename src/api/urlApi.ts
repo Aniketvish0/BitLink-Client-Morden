@@ -1,4 +1,3 @@
-import axios from 'axios';
 import axiosInstance from './axiosConfig';
 
 const API_URL = 'http://localhost:3001';

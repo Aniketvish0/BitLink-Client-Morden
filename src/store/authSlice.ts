@@ -6,22 +6,12 @@ interface User {
   email: string;
 }
 
-interface AuthState {
-  isAuthenticated: boolean;
-  user: User | null;
-  accessToken: string | null;
-}
+
 
 interface LoginPayload {
   user?: User;
   accessToken: string;
 }
-
-const initialState: AuthState = {
-  isAuthenticated: false,
-  user: null,
-  accessToken: null,
-};
 
 const authSlice = createSlice({
   name: 'auth',
