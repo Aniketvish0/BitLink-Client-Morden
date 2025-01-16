@@ -14,7 +14,7 @@ const Signup = () => {
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await signupUser(fullname, username, email, password );
+      await signupUser({fullname, username, email, password} );
       toast.success('Account created successfully!');
       navigate('/login');
     } catch (error: any) {

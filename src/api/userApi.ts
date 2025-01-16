@@ -4,6 +4,7 @@ import axiosInstance from './axiosConfig';
 const API_URL = 'http://localhost:3001';
 
 interface SignupData {
+  fullname : string;
   username: string;
   email: string;
   password: string;
