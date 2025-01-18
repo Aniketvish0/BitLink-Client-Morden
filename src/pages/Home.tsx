@@ -37,7 +37,7 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-white dark:bg-[#0f1117] text-gray-900 dark:text-white py-32">
+      <section className="bg-white dark:bg-[#0f1117] text-gray-900 dark:text-white py-28 mb-0 relative">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           {/* <img src="/chain-icon.svg" alt="Chain Link" className="w-24 h-24 mx-auto mb-8" /> */}
           <h1 className="text-5xl font-bold mb-6">
@@ -56,7 +56,7 @@ const Home = () => {
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="Enter link to be shortened"
                 required
-                className="bg-[#1c1f26] border-0 flex-1 text-white"
+                className="dark:bg-[#1c1f26] dark:border-0 border-0 bg-slate-200 flex-1 dark:text-white"
               />
               <Button type="submit" className="bg-blue-600 hover:bg-blue-700">
                 Shorten link
@@ -72,7 +72,7 @@ const Home = () => {
       </section>
        {/* Results Section */}
        {shortUrl && (
-        <div className="max-w-2xl mx-auto mt-8 p-6 bg-white rounded-lg shadow-lg">
+        <div className="max-w-2xl mx-auto mt-0 p-4 bg-white rounded-lg shadow-lg">
           <p className="text-lg font-semibold mb-2">Your shortened URL:</p>
           <a
             href={`http://localhost:3001/${shortUrl}`}
@@ -92,14 +92,13 @@ const Home = () => {
            </Button>
         </div>
       )}
-      {/* Feature Cards */}
-      <section className="py-20 bg-[#0f1117] relative ">
-        {/* Gradient orbs in the background */}
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full filter blur-[128px]" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full filter blur-[128px]" />
+      <section className="py-20 dark:bg-[#0f1117] bg-white relative mt-0 ">
+      
+        <div className="absolute dark:bottom-0 top-0 left-1/4 dark:w-96 w-48 dark:h-96 h-48 dark:bg-blue-500/20 bg-gray-100 rounded-full filter blur-[128px]" />
+        <div className="absolute top-0 right-1/4 dark:w-96 w-48 dakr:h-96 h-48 dark:bg-purple-500/20 bg-gray-100 rounded-full filter blur-[128px]" />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <h2 className="text-3xl font-bold text-center mb-12 text-white">Why Choose BitLink?</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 text-[#21272a] dark:text-white">Why Choose BitLink?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <motion.div
@@ -108,11 +107,7 @@ const Home = () => {
                 transition={{ duration: 0.2 }}
                 className="relative group"
               >
-                {/* Glow effect */}
-                {/* <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl blur opacity-30 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" /> */}
-                
-                {/* Card content */}
-                <div className="relative bg-gray-50 dark:bg-[#1c1f26] p-6 rounded-xl">
+                <div className="relative bg-gray-50  shadow-sm light:shadow-blue-200 dark:bg-[#1c1f26] p-6 rounded-xl">
                   <div className="w-12 h-12 mb-4 text-blue-500 rounded-lg flex items-center justify-center">
                     {feature.icon}
                   </div>
@@ -129,9 +124,9 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
+    
       <section className="py-20 bg-[#0f1117] relative">
-        {/* Background gradient effects */}
+        
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full filter blur-[128px]" />
         <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full filter blur-[128px]" />
 
@@ -197,7 +192,7 @@ const Home = () => {
 
     
 
-      {/* CTA Section */}
+    
       {!isAuthenticated && (
         <section className="py-20 bg-gradient-to-r from-blue-500 to-indigo-600 dark:from-blue-600 dark:to-indigo-700 text-white">
           <div className="max-w-4xl mx-auto text-center px-4">
@@ -218,7 +213,7 @@ const Home = () => {
   );
 };
 
-// Add these constants at the bottom of the file
+
 const features = [
   {
     title: "Link Analytics",
@@ -239,13 +234,13 @@ const features = [
 
 const testimonials = [
   {
-    content: "Bitlink has transformed how we share links with our customers. The analytics are invaluable!",
+    content: "Bitlink has transformed how we share links with our customers.",
     name: "Sarah Johnson",
     role: "Marketing Director",
     avatar: "https://randomuser.me/api/portraits/women/1.jpg"
   },
   {
-    content: "The custom branding feature helps maintain our professional image across all channels.",
+    content: "The custom branding feature helps maintain our professional image.",
     name: "Michael Chen",
     role: "Social Media Manager",
     avatar: "https://randomuser.me/api/portraits/men/1.jpg"

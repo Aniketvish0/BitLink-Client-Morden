@@ -24,55 +24,55 @@ const Signup = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto px-4 py-16">
-      <h1 className="text-3xl font-bold mb-6 text-center text-white">Create Account</h1>
-      <div className="bg-[#1c1f26] p-8 rounded-lg shadow-xl">
-        <form onSubmit={handleSignup} className="space-y-4">
+    <div className="max-w-md mx-auto px-4 py-16 b">
+      <h1 className="text-3xl font-bold mb-6 text-center  dark:text-white">Create Account</h1>
+      <div className="dark:bg-[#1c1f26] bg-white p-8 rounded-lg shadow-xl">
+        <form onSubmit={handleSignup} className="space-y-4 ">
           <div>
-            <label htmlFor="fullname" className="block mb-1.5 text-gray-300 text-sm">Full Name</label>
+            <label htmlFor="fullname" className="block mb-1.5 dark:text-gray-300 text-black text-sm">Full Name</label>
             <Input
               id="fullname"
               type="text"
               value={fullname}
               onChange={(e) => setFullname(e.target.value)}
               required
-              className="bg-[#2c2f36] border-gray-700 text-white"
+              className="dark:bg-[#2c2f36] border-gray-700  outline-transparent "
               placeholder="John Doe"
             />
           </div>
-          <div>
-            <label htmlFor="username" className="block mb-1.5 text-gray-300 text-sm">Username</label>
+          <div> 
+            <label htmlFor="username" className="block mb-1.5 dark:text-gray-300 text-black text-sm">Username</label>
             <Input
               id="username"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
-              className="bg-[#2c2f36] border-gray-700 text-white"
+              className="dark:bg-[#2c2f36] border-gray-700 text-white"
               placeholder="johndoe"
             />
           </div>
           <div>
-            <label htmlFor="email" className="block mb-1.5 text-gray-300 text-sm">Email</label>
+            <label htmlFor="email" className="block mb-1.5 dark:text-gray-300 text-black text-sm">Email</label>
             <Input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="bg-[#2c2f36] border-gray-700 text-white"
+              className="dark:bg-[#2c2f36] border-gray-700 text-white"
               placeholder="john@example.com"
             />
           </div>
           <div>
-            <label htmlFor="password" className="block mb-1.5 text-gray-300 text-sm">Password</label>
+            <label htmlFor="password" className="block mb-1.5 dark:text-gray-300 text-black text-sm">Password</label>
             <Input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="bg-[#2c2f36] border-gray-700 text-white"
+              className="dark:bg-[#2c2f36] border-gray-700 text-white"
               placeholder="••••••••"
             />
           </div>

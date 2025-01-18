@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getUserUrls, deleteUrl, updateUrl } from '../api/urlApi';
 import { Button } from '../components/ui/button';
+import { Navigate, useLoaderData, useNavigate } from 'react-router-dom';
 // import { Input } from '../components/ui/input';
 import { toast } from 'react-hot-toast';
 import { 
@@ -21,32 +22,13 @@ import {
 } from "@/components/ui/table";
 
 const Dashboard = () => {
-  const [urls, setUrls] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [stats, setStats] = useState({ totalUrls: 0, totalVisitors: 0 });
-
-  useEffect(() => {
-    fetchUrls();
-  }, []);
-
-  const fetchUrls = async () => {
-    try {
-      const response = await getUserUrls();
-      const userData = response.data.Response[0];
-      setUrls(userData.Url);
-      setStats({
-        totalUrls: userData.totalUrls,
-        totalVisitors: userData.totalVisitorCount
-      });
-      setLoading(false);
-    } catch (error) {
-      toast.error('Failed to fetch URLs');
-      setLoading(false);
-    }
-  };
+  const { urls, stats } = useLoaderData() as { urls: any[]; stats: { totalUrls: number; totalVisitors: number } };
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  
 
   const handleCopy = (shortUrl: string) => {
-    navigator.clipboard.writeText(`${window.location.origin}/${shortUrl}`);
+    navigator.clipboard.writeText(`${import.meta.env.VITE_API_URL}/${shortUrl}`);
     toast.success('URL copied to clipboard!');
   };
 
@@ -55,7 +37,7 @@ const Dashboard = () => {
       try {
         await deleteUrl(shortId);
         toast.success('URL deleted successfully');
-        fetchUrls();
+       //
       } catch (error) {
         toast.error('Failed to delete URL');
       }
@@ -66,7 +48,7 @@ const Dashboard = () => {
     try {
       await updateUrl(shortId, newUrl);
       toast.success('URL updated successfully');
-      fetchUrls();
+      //
     } catch (error) {
       toast.error('Failed to update URL');
     }
@@ -114,7 +96,7 @@ const Dashboard = () => {
                 </TableHeader>
                 <TableBody>
                   {urls.map((url: any) => (
-                    <TableRow key={url.shortID} className="border-gray-800">
+                    <TableRow key={url.shortID} onClick={()=> {navigate(`/url/${url.shortID}`)} } className="border-gray-800">
                       <TableCell className="text-gray-300">
                         <div className="flex items-center space-x-2">
                           <span className="truncate max-w-[300px]">{url.redirectURL}</span>
@@ -134,7 +116,7 @@ const Dashboard = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => handleCopy(url.shortID)}
+                            onClick={(e) =>{e.stopPropagation(); handleCopy(url.shortID)}}
                             className="text-blue-500 hover:text-blue-400"
                           >
                             <Copy className="w-4 h-4" />
@@ -156,7 +138,8 @@ const Dashboard = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => {
+                            onClick={(e) => {
+                              e.stopPropagation();
                               const newUrl = prompt('Enter new URL:', url.redirectURL);
                               if (newUrl) handleUpdate(url.shortID, newUrl);
                             }}
@@ -167,7 +150,7 @@ const Dashboard = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => handleDelete(url.shortID)}
+                            onClick={(e) =>{ e.stopPropagation(); handleDelete(url.shortID)}}
                             className="text-gray-400 hover:text-white"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -175,8 +158,9 @@ const Dashboard = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => {
-                              toast.success('Analytics feature coming soon!');
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/url/${url.shortID}`)
                             }}
                             className="text-gray-400 hover:text-white"
                           >
@@ -194,6 +178,22 @@ const Dashboard = () => {
       )}
     </div>
   );
+};
+
+export const loader = async () => {
+  try {
+    const response = await getUserUrls();
+    const userData = response.data.Response[0];
+    return {
+      urls: userData.Url,
+      stats: {
+        totalUrls: userData.totalUrls,
+        totalVisitors: userData.totalVisitorCount,
+      },
+    };
+  } catch (error) {
+    throw new Response('Failed to fetch URLs', { status: 500 });
+  }
 };
 
 export default Dashboard;
