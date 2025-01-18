@@ -18,12 +18,16 @@ const Url = () => {
     },[shortId]);
 
   return (
-    <div>Url :
-        welcome to url page of : :
-        :
-        :
-        :
-        :{shortId}
+    <div className="flex flex-col gap-2">
+        <div className="flex flex-row">
+          <h2>ShortID</h2>
+        </div>
+        <div>
+            <h3>Created at</h3>
+        <div className="grid grid-cols-2 grid-rows-2">
+
+        </div>
+        </div>
     </div>
   )
 }

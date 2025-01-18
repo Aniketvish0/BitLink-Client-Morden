@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { getUserUrls, deleteUrl, updateUrl } from '../api/urlApi';
 import { Button } from '../components/ui/button';
-import { Navigate, useLoaderData, useNavigate } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 // import { Input } from '../components/ui/input';
 import { toast } from 'react-hot-toast';
 import { 
@@ -23,7 +23,7 @@ import {
 
 const Dashboard = () => {
   const { urls, stats } = useLoaderData() as { urls: any[]; stats: { totalUrls: number; totalVisitors: number } };
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const navigate = useNavigate();
   
 
