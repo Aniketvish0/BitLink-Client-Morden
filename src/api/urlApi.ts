@@ -1,11 +1,13 @@
 import axiosInstance from './axiosConfig';
 
-const API_URL = 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL;
 
-export const shortenUrl = async (redirectURL: string) => {
+export const shortenUrl = async (redirectURL: string, customAlias : string | undefined = undefined , isActive : boolean = true) => {
   try {
     const response = await axiosInstance.post('/url', { 
-      redirectURL
+      redirectURL,
+      customAlias,
+      isActive
     });
     return response;
   } catch (error: any) {

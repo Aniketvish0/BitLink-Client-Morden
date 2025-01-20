@@ -3,7 +3,7 @@ import { store } from '../store';
 import { login, logout } from '../store/authSlice';
 import { refreshToken } from './userApi';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL ;
 
 
 const axiosInstance = axios.create({
@@ -24,17 +24,6 @@ axiosInstance.interceptors.request.use(
       method: config?.method,
       headers: config?.headers
     });
-    return config;
-  },
-  (error) => {
-    console.error('Request error:', error);
-    return Promise.reject(error);
-  }
-);
-
-// Request interceptor
-axiosInstance.interceptors.request.use(
-  (config) => {
     const token = localStorage.getItem('accessToken');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -42,6 +31,7 @@ axiosInstance.interceptors.request.use(
     return config;
   },
   (error) => {
+    console.error('Request error:', error);
     return Promise.reject(error);
   }
 );
@@ -62,11 +52,8 @@ axiosInstance.interceptors.response.use(
       try {
         const response = await refreshToken();
         const { token: accessToken } = response.data;
-    
         store.dispatch(login({ accessToken }));
-        
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
-        
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         store.dispatch(logout());

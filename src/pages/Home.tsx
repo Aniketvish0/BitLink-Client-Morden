@@ -35,7 +35,7 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen ">
       {/* Hero Section */}
       <section className="bg-white dark:bg-[#0f1117] text-gray-900 dark:text-white py-28 mb-0 relative">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -94,8 +94,8 @@ const Home = () => {
       )}
       <section className="py-20 dark:bg-[#0f1117] bg-white relative mt-0 ">
       
-        <div className="absolute dark:bottom-0 top-0 left-1/4 dark:w-96 w-48 dark:h-96 h-48 dark:bg-blue-500/20 bg-gray-100 rounded-full filter blur-[128px]" />
-        <div className="absolute top-0 right-1/4 dark:w-96 w-48 dakr:h-96 h-48 dark:bg-purple-500/20 bg-gray-100 rounded-full filter blur-[128px]" />
+        <div className="absolute dark:bottom-0 sm:left-1/3 left-7 top-0  dark:w-96 w-48 dark:h-96 h-48 dark:bg-blue-500/20 bg-gray-100 rounded-full filter blur-[128px]" />
+        <div className="absolute top-0 sm:right-1/4 right-5 dark:w-96 w-48 dakr:h-96 h-48 dark:bg-purple-500/20 bg-gray-100 rounded-full filter blur-[128px]" />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <h2 className="text-3xl font-bold text-center mb-12 text-[#21272a] dark:text-white">Why Choose BitLink?</h2>
@@ -127,8 +127,8 @@ const Home = () => {
     
       <section className="py-20 bg-[#0f1117] relative">
         
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full filter blur-[128px]" />
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full filter blur-[128px]" />
+        <div className="absolute top-0 sm:left-1/3 left-7  w-96 h-96 bg-blue-500/10 rounded-full filter blur-[128px]" />
+        <div className="absolute bottom-0 sm:right-1/4 right-5 w-96 h-96 bg-purple-500/10 rounded-full filter blur-[128px]" />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <h2 className="text-3xl font-bold text-center text-white mb-12">What Our Users Say</h2>
@@ -213,7 +213,7 @@ const Home = () => {
   );
 };
 
-
+// Add these constants at the bottom of the file
 const features = [
   {
     title: "Link Analytics",
@@ -234,13 +234,13 @@ const features = [
 
 const testimonials = [
   {
-    content: "Bitlink has transformed how we share links with our customers.",
+    content: "Bitlink has transformed how we share links with our customers. The analytics are invaluable!",
     name: "Sarah Johnson",
     role: "Marketing Director",
     avatar: "https://randomuser.me/api/portraits/women/1.jpg"
   },
   {
-    content: "The custom branding feature helps maintain our professional image.",
+    content: "The custom branding feature helps maintain our professional image across all channels.",
     name: "Michael Chen",
     role: "Social Media Manager",
     avatar: "https://randomuser.me/api/portraits/men/1.jpg"

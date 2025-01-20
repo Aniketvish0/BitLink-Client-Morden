@@ -69,6 +69,6 @@
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     margin: 0;
-    transition: background-color 0.3s, color 0.3s; /* Add smooth transitions */
+    transition: background-color 0.3s, color 0.3s; 
   }
 }

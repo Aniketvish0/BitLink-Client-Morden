@@ -2,7 +2,6 @@ import { useState} from 'react';
 import { getUserUrls, deleteUrl, updateUrl } from '../api/urlApi';
 import { Button } from '../components/ui/button';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-// import { Input } from '../components/ui/input';
 import { toast } from 'react-hot-toast';
 import { 
   BarChart2, 
@@ -184,6 +183,7 @@ export const loader = async () => {
   try {
     const response = await getUserUrls();
     const userData = response.data.Response[0];
+    console.log(userData);
     return {
       urls: userData.Url,
       stats: {
