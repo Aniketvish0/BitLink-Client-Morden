@@ -52,7 +52,6 @@ const Header = () => {
         <div className='hidden md:flex items-center whitespace-nowrap flex-nowrap flex-col'>
           { isAuthenticated && <button className='border-blue-400 border-[1px] py-1 px-4 rounded-lg mr-4 flex items-center space-x-2 whitespace-nowrap' 
         onClick={()=>{
-          navigate('#ShortenLinkPage')
           setShowPopupModal(true)
         }}
         >

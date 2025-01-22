@@ -1,5 +1,7 @@
 const Footer = () => {
   return (
+    <>
+    
     <footer className="bg-gray-50 dark:bg-[#0f1117] text-gray-600 dark:text-gray-400 py-12 border-t border-gray-200 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -44,6 +46,14 @@ const Footer = () => {
         </div>
       </div>
     </footer>
+    {/* <img 
+      src="https://framerusercontent.com/images/7Zhcr1w8qz3CBaKEBIX5tulzp7g.png?scale-down-to=1024" 
+      alt="" 
+      srcSet="https://framerusercontent.com/images/7Zhcr1w8qz3CBaKEBIX5tulzp7g.png?scale-down-to=512 512w, https://framerusercontent.com/images/7Zhcr1w8qz3CBaKEBIX5tulzp7g.png?scale-down-to=1024 1024w, https://framerusercontent.com/images/7Zhcr1w8qz3CBaKEBIX5tulzp7g.png 1200w" 
+      sizes="calc(max(min(810px, 100vw), 810px) + 92px)" 
+      className="block w-full h-auto object-center object-cover rounded-lg"
+    /> */}
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import axiosInstance from './axiosConfig';
 
-const API_URL = 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL;
 
 interface SignupData {
   fullname : string;
@@ -11,7 +11,7 @@ interface SignupData {
 }
 
 export const signupUser = async (data: SignupData) => {
-  const response = await axiosInstance.post('/signup', data);
+  const response = await axiosInstance.post('/user/signup', data);
   return response.data;
 };
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { shortenUrl } from "@/api/urlApi";
 import toast from "react-hot-toast";
+import QRCode from "./QRcode";
 
 type CreateLinkPopupModalProps = {
   onClose: () => void; 
@@ -83,10 +84,17 @@ const handleCopy = (shortID: string) => {
                    className="dark:bg-[#2c2f36] border-gray-700 flex items-center justify-center"
                  />
                </div>
-               { shortID && <div className="w-full flex justify-between py-4 px-4 bg-indigo-950 rounded-lg">
+               { shortID && (
+                <div>
+                <div className="w-full flex justify-between py-4 px-4 bg-indigo-950 rounded-lg">
                  <span>{`${import.meta.env.VITE_API_URL}/${customAlias ? customAlias : shortID}`}</span>
                  <Copy onClick={() => handleCopy(shortID)}/>
                </div>
+                <QRCode data={`${import.meta.env.VITE_API_URL}/${customAlias ? customAlias : shortID}-qr`}
+                 className="mt-4 flex md:flex-row flex-col justify-center md:gap-4 gap-1"
+                />
+                </div>
+               )
                }
                <Button type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700">Shorten</Button>
               </form>

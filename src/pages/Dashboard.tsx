@@ -9,7 +9,8 @@ import {
   Trash2, 
   Link as LinkIcon,
   ExternalLink,
-  Copy
+  Copy,
+  PlusIcon
 } from 'lucide-react';
 import {
   Table,
@@ -19,10 +20,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import CreateLinkPopupModal from '@/components/CreateLinkPopupModal';
 
 const Dashboard = () => {
   const { urls, stats } = useLoaderData() as { urls: any[]; stats: { totalUrls: number; totalVisitors: number } };
   const [loading] = useState(false);
+  const [showPopupModal , setShowPopupModal] = useState(false);
   const navigate = useNavigate();
   
 
@@ -79,8 +82,13 @@ const Dashboard = () => {
 
           {/* URLs Table */}
           <div className="bg-[#1c1f26] rounded-lg shadow-lg overflow-hidden">
-            <div className="p-6 border-b border-gray-800">
+            <div className="p-6 border-b border-gray-800 flex justify-between">
               <h2 className="text-xl font-semibold text-white">Your Links</h2>
+              <button className=' bg-rose-700 py-1 px-4 rounded-sm mr-4 flex items-center space-x-2 whitespace-nowrap' 
+              onClick={()=>setShowPopupModal(true)}>     
+                <span className="text-sm font-normal transition-colors dark:text-gray-300 dark:hover:text-white text-gray-600">Create Link</span>
+                <PlusIcon className='h-4'/>
+              </button>
             </div>
             <div className="overflow-x-auto">
               <Table>
@@ -175,6 +183,7 @@ const Dashboard = () => {
           </div>
         </>
       )}
+      {showPopupModal && <CreateLinkPopupModal onClose={()=> setShowPopupModal(false)}/>}
     </div>
   );
 };
