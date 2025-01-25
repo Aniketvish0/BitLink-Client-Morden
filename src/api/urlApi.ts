@@ -19,8 +19,8 @@ export const shortenUrl = async (redirectURL: string, customAlias : string | und
   }
 };
 
-export const deleteUrl = async (shortId: string) => {
-  return axiosInstance.delete(`${API_URL}/url/delete`, { data: { shortId } });
+export const deleteUrl = async (shortID: string) => {
+  return axiosInstance.delete(`${API_URL}/url/delete/${shortID}`);
 };
 
 export const getUrlAnalytics = async (shortId: string) => {

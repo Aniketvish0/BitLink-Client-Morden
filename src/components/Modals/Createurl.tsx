@@ -1,17 +1,17 @@
 import { X , Copy } from "lucide-react";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { shortenUrl } from "@/api/urlApi";
 import toast from "react-hot-toast";
-import QRCode from "./QRcode";
+import QRCode from "../QRcode";
 
 type CreateLinkPopupModalProps = {
   onClose: () => void; 
 };
-const CreateLinkPopupModal = ({onClose} : CreateLinkPopupModalProps) => {
+const Createurl = ({onClose} : CreateLinkPopupModalProps) => {
   const [redirectURL, setRedirectURL] = useState('');
-  const [customAlias , setCustomAlias]  = useState('');
+  const [customAlias , setCustomAlias]  = useState<string | undefined>(undefined);
   const [isActive, setIsActive] = useState(true);
   const [expirationdate , setExpirationdate] = useState<Date | null>(null);
   const [shortID, setShortID] = useState('');
@@ -84,18 +84,17 @@ const handleCopy = (shortID: string) => {
                    className="dark:bg-[#2c2f36] border-gray-700 flex items-center justify-center"
                  />
                </div>
-               { shortID && (
-                <div>
+               { shortID && 
                 <div className="w-full flex justify-between py-4 px-4 bg-indigo-950 rounded-lg">
                  <span>{`${import.meta.env.VITE_API_URL}/${customAlias ? customAlias : shortID}`}</span>
                  <Copy onClick={() => handleCopy(shortID)}/>
-               </div>
-                <QRCode data={`${import.meta.env.VITE_API_URL}/${customAlias ? customAlias : shortID}-qr`}
-                 className="mt-4 flex md:flex-row flex-col justify-center md:gap-4 gap-1"
-                />
                 </div>
-               )
-               }
+                }
+                {shortID &&
+                 <QRCode size={90} data={`${import.meta.env.VITE_API_URL}/${customAlias ? customAlias : shortID}-qr`}
+                 className="mt-4 flex md:flex-row flex-col justify-center md:gap-4 gap-1"
+                 /> 
+                }
                <Button type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700">Shorten</Button>
               </form>
         </div>
@@ -103,4 +102,4 @@ const handleCopy = (shortID: string) => {
   )
 }
 
-export default CreateLinkPopupModal
+export default Createurl

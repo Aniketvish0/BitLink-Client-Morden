@@ -6,7 +6,7 @@ import { RootState } from '../store';
 import { LinkIcon , PlusIcon} from 'lucide-react';
 import { Button } from './ui/button';
 import { ThemeToggle } from './ThemeToggle';
-import CreateLinkPopupModal from './CreateLinkPopupModal';
+import Createurl from './Modals/Createurl';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,7 +24,7 @@ const Header = () => {
   };
   return(
     <>
-  <header className='bg-transparent backdrop-filter backdrop-blur-md text-gray-900 top-0 dark:text-white sticky z-50 border-b border-gray-200 dark:border-gray-800'>
+  <header className='bg-transparent backdrop-filter backdrop-blur-md text-gray-900 top-0 dark:text-white sticky z-10 border-b border-gray-200 dark:border-gray-800'>
     <div className='mx-auto md:py-2 py-4 px-4 flex flex-col md:flex-row justify-between items-center'>
       <div className="flex justify-between w-full">
         <NavLink to="/" className="flex items-center space-x-2">
@@ -105,7 +105,7 @@ const Header = () => {
     </div>
   </header>
   <section id='ShortenLinkPage'>
-  {showPopupModal && <CreateLinkPopupModal onClose={()=> setShowPopupModal(false)}/>}
+  {showPopupModal && <Createurl onClose={()=> setShowPopupModal(false)}/>}
   </section>
   </>
   )

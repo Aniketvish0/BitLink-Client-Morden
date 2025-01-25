@@ -1,6 +1,6 @@
-import React, { useEffect, useRef} from "react";
-import QRCodeStyling from "qr-code-styling";
-import { Download } from "lucide-react";
+import { useEffect, useRef, useState} from "react";
+import QRCodeStyling, { FileExtension } from "qr-code-styling";
+import { Download, LucideDownload } from "lucide-react";
 
 interface QRCodeProps {
   data: string;
@@ -13,7 +13,6 @@ interface QRCodeProps {
   cornersColor?: string;
   image?: string; 
   imageSize?: number; 
-  fileExt?: "png" | "jpeg" | "webp"; 
   className?: string; 
 }
 
@@ -28,12 +27,11 @@ const QRCode = ({
   cornersColor = "#000000",
   image,
   imageSize = 0.4,
-  fileExt = "png",
   className,
 }:QRCodeProps) => {
   const qrCode = useRef<QRCodeStyling | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
-
+  const [fileExt , setFileExt] = useState("png");
   useEffect(() => {
     qrCode.current = new QRCodeStyling({
       width: size,
@@ -97,23 +95,44 @@ const QRCode = ({
       },
       image,
     });
-  }, [data, dotsColor, dotsType, cornersColor, cornersSquareType, cornersDotType, bgColor, image, imageSize]);
+    if (containerRef.current) {
+      qrCode.current?.append(containerRef.current);
+    }
+    return () => {
+      if (containerRef.current) {
+        containerRef.current.innerHTML = "";
+      }
+    };
+  }, [data,size, dotsColor, dotsType, cornersColor, cornersSquareType, cornersDotType, bgColor, image, imageSize]);
 
-  const handleDownload = () => {
+  const handleDownload = (fileExt : string) => {
     qrCode.current?.download({
-      extension: fileExt,
+      extension: fileExt as FileExtension,
     });
   };
 
   return (
-    <div className={`items-center ${className}`}>
-      <div ref={containerRef} />
-      <button
-        onClick={handleDownload}
-        className="mt-2 text-white rounded hover:text-blue-500"
-      >
-        <Download/>
-      </button>
+    <div className={`${className} flex items-center flex-col`}>
+      <div ref={containerRef} className=""/>
+      <div className="mt-4 flex justify-around sm:w-full gap-2 "> 
+        <select
+          name="select-file-ext"
+          id="select-file-ext"
+          onChange={(e) => setFileExt(e.target.value)}
+          className="dark:bg-[#1c1f26] rounded-sm px-4 text-sm py-1 dark:text-white outline-none "
+        >
+          <option value="png">PNG</option>
+          <option value="jpeg">JPEG</option>
+          <option value="svg">SVG</option>
+          <option value="webp">WEBP</option>
+        </select>
+        <button
+          onClick={() => handleDownload(fileExt)}
+          className=""
+        >
+          <LucideDownload size={18} className="hover:text-blue-500"/>
+        </button>
+      </div>
     </div>
   );
 };

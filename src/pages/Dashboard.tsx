@@ -1,5 +1,5 @@
 import { useState} from 'react';
-import { getUserUrls, deleteUrl, updateUrl } from '../api/urlApi';
+import { getUserUrls} from '../api/urlApi';
 import { Button } from '../components/ui/button';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
@@ -20,12 +20,17 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import CreateLinkPopupModal from '@/components/CreateLinkPopupModal';
+import Createurl from '@/components/Modals/Createurl';
+import DeleteUrl from '@/components/Modals/DeleteUrl';
+import EditLUrl from '@/components/Modals/EditLUrl';
 
 const Dashboard = () => {
   const { urls, stats } = useLoaderData() as { urls: any[]; stats: { totalUrls: number; totalVisitors: number } };
   const [loading] = useState(false);
   const [showPopupModal , setShowPopupModal] = useState(false);
+  const [showDeleteUrlModal , setShowDeleteUrlModal] = useState(false);
+  const [showEditUrlModal , setShowEditUrlModal] = useState(false);
+  const [shortId, setshortId] = useState("");
   const navigate = useNavigate();
   
 
@@ -34,27 +39,6 @@ const Dashboard = () => {
     toast.success('URL copied to clipboard!');
   };
 
-  const handleDelete = async (shortId: string) => {
-    if (window.confirm('Are you sure you want to delete this URL?')) {
-      try {
-        await deleteUrl(shortId);
-        toast.success('URL deleted successfully');
-       //
-      } catch (error) {
-        toast.error('Failed to delete URL');
-      }
-    }
-  };
-
-  const handleUpdate = async (shortId: string, newUrl: string) => {
-    try {
-      await updateUrl(shortId, newUrl);
-      toast.success('URL updated successfully');
-      //
-    } catch (error) {
-      toast.error('Failed to update URL');
-    }
-  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
@@ -84,10 +68,10 @@ const Dashboard = () => {
           <div className="bg-[#1c1f26] rounded-lg shadow-lg overflow-hidden">
             <div className="p-6 border-b border-gray-800 flex justify-between">
               <h2 className="text-xl font-semibold text-white">Your Links</h2>
-              <button className=' bg-rose-700 py-1 px-4 rounded-sm mr-4 flex items-center space-x-2 whitespace-nowrap' 
+              <button className=' bg-rose-700 hover:bg-rose-600 text-sm font-normal transition-all  dark:text-white  py-1 px-4 rounded-sm mr-4 flex items-center space-x-2 whitespace-nowrap' 
               onClick={()=>setShowPopupModal(true)}>     
-                <span className="text-sm font-normal transition-colors dark:text-gray-300 dark:hover:text-white text-gray-600">Create Link</span>
-                <PlusIcon className='h-4'/>
+                <span className="flex flex-row items-center ">Create Link  <PlusIcon className='h-4'/></span>
+               
               </button>
             </div>
             <div className="overflow-x-auto">
@@ -147,8 +131,6 @@ const Dashboard = () => {
                             size="sm"
                             onClick={(e) => {
                               e.stopPropagation();
-                              const newUrl = prompt('Enter new URL:', url.redirectURL);
-                              if (newUrl) handleUpdate(url.shortID, newUrl);
                             }}
                             className="text-gray-400 hover:text-white"
                           >
@@ -157,10 +139,10 @@ const Dashboard = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={(e) =>{ e.stopPropagation(); handleDelete(url.shortID)}}
-                            className="text-gray-400 hover:text-white"
+                            onClick={(e) =>{ e.stopPropagation(); setShowDeleteUrlModal(true); setshortId(url.shortID)}}
+                            className="text-gray-400 hover:text-red-700"
                           >
-                            <Trash2 className="w-4 h-4" />
+                            <Trash2 className="w-4 h-4 " />
                           </Button>
                           <Button
                             variant="ghost"
@@ -183,7 +165,9 @@ const Dashboard = () => {
           </div>
         </>
       )}
-      {showPopupModal && <CreateLinkPopupModal onClose={()=> setShowPopupModal(false)}/>}
+      {showPopupModal && <Createurl onClose={()=> setShowPopupModal(false)}/>}
+      {showDeleteUrlModal && <DeleteUrl shortId={shortId} onClose= {() => setShowDeleteUrlModal(false)}/>}  
+      {showEditUrlModal && <EditLUrl onClose={() => setShowEditUrlModal(false)}/>}
     </div>
   );
 };
@@ -194,7 +178,7 @@ export const loader = async () => {
     const userData = response.data.Response[0];
     console.log(userData);
     return {
-      urls: userData.Url,
+      urls: userData.urls,
       stats: {
         totalUrls: userData.totalUrls,
         totalVisitors: userData.totalVisitorCount,
