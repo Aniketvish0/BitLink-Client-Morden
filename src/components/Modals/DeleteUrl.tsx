@@ -34,7 +34,7 @@ const DeleteUrl = ({onClose , shortId} : DeleteUrlProps) => {
             <h2 >Are you Sure ?</h2>
             <div className='flex justify-center gap-10 '>
                 <Button className='px-10 py-4 bg-red-800 transition-colors  hover:bg-red-600'
-                        onClick={() => {handledeleteurl(); onClose();}}
+                        onClick={() => {handledeleteurl()}}
                 >Yes</Button>
                 <Button className='px-10 py-4 bg-background transition-colors hover:bg-zinc-950 '
                         onClick={onClose}

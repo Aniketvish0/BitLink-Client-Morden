@@ -35,6 +35,13 @@ const router = createBrowserRouter([
             <Url/>
           </ProtectedRoute>
         )
+      },
+      { path : "/features",
+          element : (
+            <div className="h-screen flex justify-center items-center text-4xl">
+              Features Page (Coming Soon) 
+            </div>
+          )
       }
     ],
   },
