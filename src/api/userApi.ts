@@ -34,11 +34,11 @@ export const loginUser = async (username: string, password: string) => {
 };
 
 export const logoutUser = async () => {
-  return axios.post(`${API_URL}/user/logout`);
+  return axios.post('/user/logout');
 };
 
 export const refreshToken = async () => {
-  return axios.get(`${API_URL}/user/refreshtoken`);
+  return axios.get('/user/refreshtoken');
 };
 
 export const changePassword = async (oldPassword: string, newPassword: string) => {

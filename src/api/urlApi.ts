@@ -1,6 +1,5 @@
 import axiosInstance from './axiosConfig';
 
-const API_URL = import.meta.env.VITE_API_URL;
 
 export const shortenUrl = async (redirectURL: string, customAlias : string | undefined = undefined , isActive : boolean = true) => {
   try {
@@ -20,19 +19,19 @@ export const shortenUrl = async (redirectURL: string, customAlias : string | und
 };
 
 export const deleteUrl = async (shortID: string) => {
-  return axiosInstance.delete(`${API_URL}/url/delete/${shortID}`);
+  return axiosInstance.delete(`/url/delete/${shortID}`);
 };
 
 export const getUrlAnalytics = async (shortId: string | undefined) => {
-  return axiosInstance.get(`${API_URL}/url/analytics/${shortId}`);
+  return axiosInstance.get(`/url/analytics/${shortId}`);
 };
 
 export const toggleUrlStatus = async (shortID: string, isActive: boolean) => {
-  return axiosInstance.post(`${API_URL}/url/togglestatus`, { shortID, isActive });
+  return axiosInstance.post('/url/togglestatus', { shortID, isActive });
 };
 
 export const updateUrl = async (shortId: string, newUrl: string , isActive: boolean, customAlias : string | undefined) => {
-  return axiosInstance.patch(`${API_URL}/url/update`, {
+  return axiosInstance.patch('/url/update', {
      shortID : shortId, 
      redirectURL : newUrl,
      isActive : isActive,
