@@ -5,14 +5,19 @@ import QRcode from "@/components/QRcode";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Copy } from "lucide-react";
-import RenderLineChart from "@/components/charts/RenderLineChart";
+import {calculatemonthlydata} from "@/lib/utils"
 
-
+interface monthdata {
+  directVisits : number,
+  qrVisits : number,
+  totalVisits : number
+}
 
 const Url = () => {
     const {shortId} = useParams<{shortId:string}>();
     const [url, setUrl] = useState("https://bitlink-client-morden.vercel.app");
     const [urldata, seturldata] = useState<any>();
+    const [currentmonthData,setcurrentmonthData] = useState<monthdata>();
     const handleCopy = (shortUrl: string) => {
       navigator.clipboard.writeText(`${import.meta.env.VITE_API_URL}/${shortUrl}`);
       toast.success('URL copied to clipboard!');
@@ -24,8 +29,14 @@ const Url = () => {
             console.log(response.data);
         }
     };
+    const getmonthlydata = async () => {
+      const monthlydata = await calculatemonthlydata(shortId);
+      console.log(monthlydata);
+      setcurrentmonthData(monthlydata);
+    }
     useEffect(() =>{
         getUrlDetails();
+        getmonthlydata();
         setUrl(`${import.meta.env.VITE_API_URL}/${shortId}`)
     },[shortId]);
     const handleEditQR = () => {
@@ -43,7 +54,7 @@ const Url = () => {
               <QRcode data={url} size={150} />
               <Button variant="default" size="sm" className="bg-rose-700 hover:bg-rose-800 mx-auto sm:w-[85%] h-8" onClick={handleEditQR}>Edit QRCode</Button>
              </div> 
-            <div className="w-full md:ml-10 grid md:grid-cols-2 md:grid-rows-2 lg:gap-16 gap-6 p-4 ">
+            <div className="w-full md:ml-10 grid md:grid-cols-2 lg:gap-16 gap-6 p-4 ">
               <div className="border border-green-500  py-4 px-6 rounded-md ">
                 <span className="text-gray-400">Total Clicks</span>
                 <h3 className="text-2xl font-medium mt-4">{urldata?.directvisits?.totalCount+urldata?.qrvisits?.totalCount}</h3>
@@ -54,11 +65,11 @@ const Url = () => {
               </div>
               <div className="border border-green-700  py-4 px-6 rounded-md ">
                 <span className="text-gray-400">This month</span> 
-                <h3 className="text-2xl font-medium mt-4">{30}</h3>
+                <h3 className="text-2xl font-medium mt-4">{currentmonthData?.totalVisits}</h3>
               </div>
               <div className="border border-blue-800 py-4 px-6 rounded-md ">
                 <span className="text-gray-400">This month</span>
-                <h3 className="text-2xl font-medium mt-4">{40}</h3>
+                <h3 className="text-2xl font-medium mt-4">{currentmonthData?.qrVisits}</h3>
               </div>
             </div>  
         </div>

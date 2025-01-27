@@ -39,14 +39,13 @@ const Home = () => {
       {/* Hero Section */}
       <section className="bg-white dark:bg-[#0f1117] text-gray-900 dark:text-white py-28 mb-0 relative">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          {/* <img src="/chain-icon.svg" alt="Chain Link" className="w-24 h-24 mx-auto mb-8" /> */}
           <h1 className="text-5xl font-bold mb-6">
             Allow people find you on{' '}
             <span className="text-gray-400">the internet. Superfast!</span>
           </h1>
           <p className="text-lg mb-8 text-gray-400">
             Say good bye to long, cumbersome URLs and hello to a simpler, sleeker
-            way to shorten, share and manage your links.
+            way to shorten, share and manage your links with great analytics.
           </p>
           <form onSubmit={handleSubmit} className="max-w-2xl mx-auto">
             <div className="flex gap-3">

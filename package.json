@@ -19,6 +19,7 @@
     "axios": "^1.4.0",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
+    "dayjs": "^1.11.13",
     "framer-motion": "^11.18.0",
     "lucide-react": "^0.244.0",
     "qr-code-styling": "^1.9.1",

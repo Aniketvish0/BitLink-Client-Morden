@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState} from "react";
 import QRCodeStyling, { FileExtension } from "qr-code-styling";
-import { Download, LucideDownload } from "lucide-react";
+import { LucideDownload } from "lucide-react";
 
 interface QRCodeProps {
   data: string;

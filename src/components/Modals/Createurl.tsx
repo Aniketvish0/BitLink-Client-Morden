@@ -2,21 +2,23 @@ import { X , Copy } from "lucide-react";
 import { Input } from "../ui/input";
 import { useState } from "react";
 import { Button } from "../ui/button";
-import { shortenUrl } from "@/api/urlApi";
+import { shortenUrl, updateUrl } from "@/api/urlApi";
 import toast from "react-hot-toast";
 import QRCode from "../QRcode";
 
 type CreateLinkPopupModalProps = {
-  onClose: () => void; 
+  onClose: () => void,
+  forUpdate : boolean, 
+  shortId? : string;
 };
-const Createurl = ({onClose} : CreateLinkPopupModalProps) => {
+const Createurl = ({onClose , forUpdate, shortId = ''} : CreateLinkPopupModalProps) => {
   const [redirectURL, setRedirectURL] = useState('');
   const [customAlias , setCustomAlias]  = useState<string | undefined>(undefined);
   const [isActive, setIsActive] = useState(true);
   const [expirationdate , setExpirationdate] = useState<Date | null>(null);
   const [shortID, setShortID] = useState('');
 
-const handlesubmit = async(e: React.FormEvent) =>{
+const handleCreateUrl = async(e: React.FormEvent) =>{
     e.preventDefault();
     try{
         const response = await shortenUrl(redirectURL,customAlias,isActive);
@@ -25,6 +27,18 @@ const handlesubmit = async(e: React.FormEvent) =>{
         toast.success(response.data.message);
     }catch(error : any){
         toast.error(error.response.data.error || "Error while creating short URL");
+    }
+}
+
+const handleUpdateUrl =  async(e : React.FormEvent) => {
+    e.preventDefault();
+    try{
+        const response = await updateUrl(shortId ,redirectURL,isActive,customAlias);
+        console.log(response);
+        toast.success("Url Updated Successfully")
+    }catch(error){
+        console.log(error);  
+        toast.error("Unable to update URL"); 
     }
 }
 const handleCopy = (shortID: string) => {
@@ -40,7 +54,7 @@ const handleCopy = (shortID: string) => {
               >
                <X size={30}/>
               </button>
-              <form onSubmit={handlesubmit} className="space-y-4">
+              <form onSubmit={forUpdate ? handleUpdateUrl : handleCreateUrl} className="space-y-4">
                <div>
                  <label htmlFor="redirectURL" className="block mb-1 dark:text-gray-300 text-[#0f1117]">Redirect URL</label>
                  <Input
@@ -95,7 +109,7 @@ const handleCopy = (shortID: string) => {
                  className="mt-4 flex md:flex-row flex-col justify-center md:gap-4 gap-1"
                  /> 
                 }
-               <Button type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700">Shorten</Button>
+               <Button type="submit" className={`w-full text-white ${forUpdate ? "bg-green-500 hover:bg-green-700" : "bg-blue-600 hover:bg-blue-700" } `}>{`${forUpdate ? "Update" : "Shorten"}`}</Button>
               </form>
         </div>
     </div>

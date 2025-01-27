@@ -23,7 +23,7 @@ export const deleteUrl = async (shortID: string) => {
   return axiosInstance.delete(`${API_URL}/url/delete/${shortID}`);
 };
 
-export const getUrlAnalytics = async (shortId: string) => {
+export const getUrlAnalytics = async (shortId: string | undefined) => {
   return axiosInstance.get(`${API_URL}/url/analytics/${shortId}`);
 };
 
@@ -31,8 +31,13 @@ export const toggleUrlStatus = async (shortID: string, isActive: boolean) => {
   return axiosInstance.post(`${API_URL}/url/togglestatus`, { shortID, isActive });
 };
 
-export const updateUrl = async (shortId: string, newUrl: string) => {
-  return axiosInstance.patch(`${API_URL}/url/update`, { shortId, newUrl });
+export const updateUrl = async (shortId: string, newUrl: string , isActive: boolean, customAlias : string | undefined) => {
+  return axiosInstance.patch(`${API_URL}/url/update`, {
+     shortID : shortId, 
+     redirectURL : newUrl,
+     isActive : isActive,
+     customAlias : customAlias
+    });
 };
 
 export const getUserUrls = async () => {

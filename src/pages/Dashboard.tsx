@@ -22,7 +22,6 @@ import {
 } from "@/components/ui/table";
 import Createurl from '@/components/Modals/Createurl';
 import DeleteUrl from '@/components/Modals/DeleteUrl';
-import EditLUrl from '@/components/Modals/EditLUrl';
 
 const Dashboard = () => {
   const { urls, stats } = useLoaderData() as { urls: any[]; stats: { totalUrls: number; totalVisitors: number } };
@@ -130,7 +129,7 @@ const Dashboard = () => {
                             variant="ghost"
                             size="sm"
                             onClick={(e) => {
-                              e.stopPropagation();
+                              e.stopPropagation(); setshortId(url.shortID); setShowEditUrlModal(true); 
                             }}
                             className="text-gray-400 hover:text-white"
                           >
@@ -165,9 +164,9 @@ const Dashboard = () => {
           </div>
         </>
       )}
-      {showPopupModal && <Createurl onClose={()=> setShowPopupModal(false)}/>}
+      {showPopupModal && <Createurl forUpdate={false} onClose={()=> setShowPopupModal(false)}/>}
       {showDeleteUrlModal && <DeleteUrl shortId={shortId} onClose= {() => setShowDeleteUrlModal(false)}/>}  
-      {showEditUrlModal && <EditLUrl onClose={() => setShowEditUrlModal(false)}/>}
+      {showEditUrlModal && <Createurl forUpdate={true} shortId={shortId} onClose={() => setShowEditUrlModal(false)} />}
     </div>
   );
 };

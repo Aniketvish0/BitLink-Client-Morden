@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { Button } from '../ui/button';
 import { Trash2, X } from 'lucide-react';
 import { deleteUrl } from '@/api/urlApi';
@@ -22,7 +22,7 @@ const DeleteUrl = ({onClose , shortId} : DeleteUrlProps) => {
     }
   }
   return (
-    <div className="fixed z-20 inset-0 bg-opacity-30 backdrop-blur-md flex items-center justify-center">
+    <div className="fixed z-20 inset-0 bg-opacity-30  backdrop-blur-sm flex items-center justify-center">
         <div className='flex flex-col gap-5 justify-center items-center mx-auto px-8 py-6 dark:bg-[#1b1e25] rounded-lg bg-white shadow-sm shadow-slate-800'>
             <button 
                   onClick={onClose}
