@@ -11,7 +11,7 @@ import Dashboard , { loader as dashboardLoader }   from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import { ThemeProvider } from './components/ThemeProvider';
 import Url from './pages/Url';
-
+import Loader from './components/ui/Loader';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -50,7 +50,7 @@ function App() {
   }, []);
 
   if (loading) {
-    return <div className="min-h-screen bg-slate-50 dark:bg-[#0f1117]">Loading...</div>; 
+    return <Loader/>; 
   }
   return (
     <ThemeProvider>

@@ -22,13 +22,19 @@ import {
 } from "@/components/ui/table";
 import Createurl from '@/components/Modals/Createurl';
 import DeleteUrl from '@/components/Modals/DeleteUrl';
+import Loader from '@/components/ui/Loader';
 
 const Dashboard = () => {
-  const { urls, stats } = useLoaderData() as { urls: any[]; stats: { totalUrls: number; totalVisitors: number } };
-  const [loading] = useState(false);
+  const loaderData = useLoaderData() as {
+    urls: any[];
+    stats: { totalUrls: number; totalVisitors: number };
+  };
+  const [loading, setLoading] = useState(false);
   const [showPopupModal , setShowPopupModal] = useState(false);
   const [showDeleteUrlModal , setShowDeleteUrlModal] = useState(false);
   const [showEditUrlModal , setShowEditUrlModal] = useState(false);
+  const [urls, setUrls] = useState(loaderData.urls);
+  const [stats, setStats] = useState(loaderData.stats);
   const [shortId, setshortId] = useState("");
   const navigate = useNavigate();
   
@@ -37,15 +43,30 @@ const Dashboard = () => {
     navigator.clipboard.writeText(`${import.meta.env.VITE_API_URL}/${shortUrl}`);
     toast.success('URL copied to clipboard!');
   };
-
-
+  const refetchData = async () => {
+    setLoading(true);
+    try {
+      const response = await getUserUrls();
+      const userData = response.data.Response[0];
+      setUrls(userData.urls);
+      setStats({
+        totalUrls: userData.totalUrls,
+        totalVisitors: userData.totalVisitorCount,
+      });
+      toast.success('Data updated!');
+    } catch (error) {
+      toast.error('Failed to update data');
+    } finally {
+      setLoading(false);
+    }
+  };
+ 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       {loading ? (
-        <div>Loading...</div>
+        <Loader/>
       ) : (
         <>
-          {/* Stats Section */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div className="bg-[#1c1f26] p-6 rounded-lg shadow-lg">
               <div className="flex items-center justify-between">
@@ -62,8 +83,6 @@ const Dashboard = () => {
               <p className="text-3xl font-bold text-white mt-2">{stats.totalVisitors}</p>
             </div>
           </div>
-
-          {/* URLs Table */}
           <div className="bg-[#1c1f26] rounded-lg shadow-lg overflow-hidden">
             <div className="p-6 border-b border-gray-800 flex justify-between">
               <h2 className="text-xl font-semibold text-white">Your Links</h2>
@@ -164,9 +183,9 @@ const Dashboard = () => {
           </div>
         </>
       )}
-      {showPopupModal && <Createurl forUpdate={false} onClose={()=> setShowPopupModal(false)}/>}
-      {showDeleteUrlModal && <DeleteUrl shortId={shortId} onClose= {() => setShowDeleteUrlModal(false)}/>}  
-      {showEditUrlModal && <Createurl forUpdate={true} shortId={shortId} onClose={() => setShowEditUrlModal(false)} />}
+      {showPopupModal && <Createurl forUpdate={false} onClose={()=> { setShowPopupModal(false); refetchData();}}/>}
+      {showDeleteUrlModal && <DeleteUrl shortId={shortId} onClose= {()=> {setShowDeleteUrlModal(false);refetchData();}}/>}  
+      {showEditUrlModal && <Createurl forUpdate={true} shortId={shortId} onClose={() => { setShowEditUrlModal(false); refetchData(); }} />}
     </div>
   );
 };

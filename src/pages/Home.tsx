@@ -234,9 +234,9 @@ const features = [
 const testimonials = [
   {
     content: "Bitlink has transformed how we share links with our customers. The analytics are invaluable!",
-    name: "Sarah Johnson",
+    name: "Nivya Johnson",
     role: "Marketing Director",
-    avatar: "https://randomuser.me/api/portraits/women/1.jpg"
+    avatar: "https://randomuser.me/api/portraits/women/4.jpg"
   },
   {
     content: "The custom branding feature helps maintain our professional image across all channels.",

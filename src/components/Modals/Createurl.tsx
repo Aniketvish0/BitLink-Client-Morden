@@ -17,13 +17,16 @@ const Createurl = ({onClose , forUpdate, shortId = ''} : CreateLinkPopupModalPro
   const [isActive, setIsActive] = useState(true);
   const [expirationdate , setExpirationdate] = useState<Date | null>(null);
   const [shortID, setShortID] = useState('');
+  const [loading, setLoading] = useState(false);
 
 const handleCreateUrl = async(e: React.FormEvent) =>{
     e.preventDefault();
     try{
+        setLoading(true);
         const response = await shortenUrl(redirectURL,customAlias,isActive);
         console.log(response.data);
         setShortID(response.data.shortID);
+        setLoading(false);
         toast.success(response.data.message);
     }catch(error : any){
         toast.error(error.response.data.error || "Error while creating short URL");
@@ -33,8 +36,10 @@ const handleCreateUrl = async(e: React.FormEvent) =>{
 const handleUpdateUrl =  async(e : React.FormEvent) => {
     e.preventDefault();
     try{
+        setLoading(true);
         const response = await updateUrl(shortId ,redirectURL,isActive,customAlias);
         console.log(response);
+        setLoading(false);
         toast.success("Url Updated Successfully")
     }catch(error){
         console.log(error);  
@@ -45,7 +50,7 @@ const handleCopy = (shortID: string) => {
   navigator.clipboard.writeText(`${import.meta.env.VITE_API_URL}/${customAlias ? customAlias : shortID}`);
   toast.success('URL copied to clipboard!');
 };
-  return (
+  return  (
     <div className="fixed z-20 inset-0 bg-opacity-30 backdrop-blur-lg flex items-center justify-center">
         <div className="flex flex-col w-full max-w-sm mx-auto px-8 py-6 dark:bg-[#1c1f26] rounded-lg bg-white shadow-2xl">
               <button 
@@ -109,7 +114,9 @@ const handleCopy = (shortID: string) => {
                  className="mt-4 flex md:flex-row flex-col justify-center md:gap-4 gap-1"
                  /> 
                 }
-               <Button type="submit" className={`w-full text-white ${forUpdate ? "bg-green-500 hover:bg-green-700" : "bg-blue-600 hover:bg-blue-700" } `}>{`${forUpdate ? "Update" : "Shorten"}`}</Button>
+               <Button type="submit" className={`w-full text-white ${forUpdate ? "bg-green-500 hover:bg-green-700" : "bg-blue-600 hover:bg-blue-700" } `}>
+                {loading ?`${forUpdate ? "Updating.." : "Shortening..." }`:`${forUpdate ? "Update" : "Shorten"}`} 
+                </Button>
               </form>
         </div>
     </div>

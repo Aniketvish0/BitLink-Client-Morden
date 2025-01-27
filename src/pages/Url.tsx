@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { Copy } from "lucide-react";
 import {calculatemonthlydata} from "@/lib/utils"
+import Loader from "@/components/ui/Loader";
 
 interface monthdata {
   directVisits : number,
@@ -18,32 +19,41 @@ const Url = () => {
     const [url, setUrl] = useState("https://bitlink-client-morden.vercel.app");
     const [urldata, seturldata] = useState<any>();
     const [currentmonthData,setcurrentmonthData] = useState<monthdata>();
+    const [loading,setLoading] = useState(false);
     const handleCopy = (shortUrl: string) => {
       navigator.clipboard.writeText(`${import.meta.env.VITE_API_URL}/${shortUrl}`);
       toast.success('URL copied to clipboard!');
     };
-    const getUrlDetails = async () => {
-        if (shortId) { 
-            const response = await getUrlAnalytics(shortId);
-            seturldata(response.data);
-            console.log(response.data);
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        if (shortId) {
+          const urlResponse = await getUrlAnalytics(shortId);
+          seturldata(urlResponse.data);
+          const monthlyData = await calculatemonthlydata(shortId);
+          setcurrentmonthData(monthlyData);
+          setUrl(`${import.meta.env.VITE_API_URL}/${shortId}`);
         }
+      } catch (error) {
+        toast.error("Failed to load data");
+      } finally {
+        setLoading(false); 
+      }
     };
-    const getmonthlydata = async () => {
-      const monthlydata = await calculatemonthlydata(shortId);
-      console.log(monthlydata);
-      setcurrentmonthData(monthlydata);
-    }
-    useEffect(() =>{
-        getUrlDetails();
-        getmonthlydata();
-        setUrl(`${import.meta.env.VITE_API_URL}/${shortId}`)
-    },[shortId]);
+  
+    useEffect(() => {
+      fetchData();
+    }, [shortId]);
+  
     const handleEditQR = () => {
       toast.success("Edit QR Feature is Coming Soon")
     }
+  if(loading){
+    return <Loader/>;
+  }  
   return (
-    shortId && (
+    shortId && !loading && (
       <div className="h-full">
         <div className="flex flex-col py-8 md:px-40  md:flex-row gap-10 ">
             <div className="flex gap-8 flex-col mx-auto">

@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto md:px-20 px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 className="text-gray-900 dark:text-white font-semibold mb-4">Why Scissor Sharp</h3>
+            <h3 className="text-gray-900 dark:text-white font-semibold mb-4">Why BitLink</h3>
             <ul className="space-y-2">
               <li><a href="#" className="hover:text-gray-900 dark:hover:text-white transition-colors">Features</a></li>
               <li><a href="#" className="hover:text-gray-900 dark:hover:text-white transition-colors">Pricing</a></li>
@@ -42,7 +42,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-12 pt-8 border-t w-full border-gray-200 dark:border-gray-800 text-center">
-          <p>&copy; 2024 Scissor Sharp. All rights reserved.</p>
+          <p>&copy; 2025 Albatross. All rights reserved .</p>
         </div>
       </div>
     </footer>

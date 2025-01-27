@@ -48,7 +48,7 @@ const Header = () => {
           </svg>
         </div>
       </div> 
-      <div className={`lg:flex md:flex lg:flex-1 items-center justify-end font-normal ${isMenuOpen ? 'absolute top-16 left-0 w-full bg-white dark:bg-zinc transition-all duration-300' : 'hidden'} md:block`}>
+      <div className={`lg:flex md:flex lg:flex-1 items-center justify-end font-normal ${isMenuOpen ? 'absolute top-16 left-0 w-full bg-white dark:bg-zinc-950 transition-all duration-300' : 'hidden'} md:block`}>
         <div className='hidden md:flex items-center whitespace-nowrap flex-nowrap flex-col'>
           { isAuthenticated && <button className='border-blue-400 border-[1px] py-1 px-4 rounded-lg mr-4 flex items-center space-x-2 whitespace-nowrap' 
         onClick={()=>{
