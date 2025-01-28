@@ -26,7 +26,8 @@ const Login = () => {
       setLoading(false);
     } catch (error: any) {
       console.log(error);
-      const errorMessage = error.response?.data?.error.message || 'Login failed. Please check your credentials.';
+      setLoading(false)
+      const errorMessage = error.response?.data?.error || "Its taking too long too start the server. Please wait for a while";
       toast.error(errorMessage);
     }
   };
