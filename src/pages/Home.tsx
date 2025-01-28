@@ -129,11 +129,11 @@ const Home = () => {
         <div className="absolute top-0 sm:left-1/3 left-7  w-96 h-96 bg-blue-500/10 rounded-full filter blur-[128px]" />
         <div className="absolute bottom-0 sm:right-1/4 right-5 w-96 h-96 bg-purple-500/10 rounded-full filter blur-[128px]" />
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center text-white mb-12">What Our Users Say</h2>
           <Swiper
             spaceBetween={30}
-            slidesPerView={1}
+            slidesPerView={3}
             breakpoints={{
               640: { slidesPerView: 2 },
               1024: { slidesPerView: 3 },
@@ -157,7 +157,7 @@ const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                 >
-                  <div className="bg-white dark:bg-[#1c1f26] p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 h-full">
+                  <div className="bg-white dark:bg-[#1c1f26] p-6 rounded-xl shadow-lg border border-gray-200 dark:border-gray-800 ">
                     <div className="flex items-center mb-4">
                       <img
                         src={testimonial.avatar}
@@ -233,13 +233,13 @@ const features = [
 
 const testimonials = [
   {
-    content: "Bitlink has transformed how we share links with our customers. The analytics are invaluable!",
+    content: "Bitlink has transformed how we share links with our customers. ",
     name: "Nivya Johnson",
     role: "Marketing Director",
-    avatar: "https://randomuser.me/api/portraits/women/4.jpg"
+    avatar: "https://randomuser.me/api/portraits/women/11.jpg"
   },
   {
-    content: "The custom branding feature helps maintain our professional image across all channels.",
+    content: "The custom branding feature helps maintain our professional image .",
     name: "Michael Chen",
     role: "Social Media Manager",
     avatar: "https://randomuser.me/api/portraits/men/1.jpg"
@@ -251,16 +251,16 @@ const testimonials = [
     avatar: "https://randomuser.me/api/portraits/women/2.jpg"
   },
   {
-    content: "Simple, fast, and reliable. Exactly what we needed for our link management.",
-    name: "Emma Williams",
+    content: "Thank you for creatively solving the link managemnt Problem",
+    name: "Sujain shah",
     role: "Content Creator",
-    avatar: "https://randomuser.me/api/portraits/women/2.jpg"
+    avatar: "https://randomuser.me/api/portraits/women/8.jpg"
   },
   {
-    content: "Simple, fast, and reliable. Exactly what we needed for our link management.",
-    name: "Emma Williams",
-    role: "Content Creator",
-    avatar: "https://randomuser.me/api/portraits/women/2.jpg"
+    content: "Feature rich link management tool really like the UI/UX.",
+    name: "Estonia martin",
+    role: "Event Organizer",
+    avatar: "https://randomuser.me/api/portraits/women/5.jpg"
   },
 ];
 

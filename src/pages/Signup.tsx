@@ -7,16 +7,20 @@ import { signupUser } from '@/api/userApi';
 const Signup = () => {
   const [fullname, setFullname] = useState('');
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
+  const [email, setEmail]       = useState('');
   const [password, setPassword] = useState('');
+  const [loading , setLoading]  = useState(false);
+
   const navigate = useNavigate();
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      setLoading(true);
       await signupUser({fullname, username, email, password} );
       toast.success('Account created successfully!');
       navigate('/login');
+      setLoading(false);
     } catch (error: any) {
       const errorMessage = error.response?.data?.error || 'Failed to create account.';
       toast.error(errorMessage);
@@ -77,7 +81,7 @@ const Signup = () => {
             />
           </div>
           <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 mt-6">
-            Create Account
+            {loading ? "Signing up...":"Create Account"}
           </Button>
         </form>
         <p className="mt-6 text-center text-gray-400">

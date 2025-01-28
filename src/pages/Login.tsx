@@ -10,19 +10,23 @@ import { toast } from 'react-hot-toast';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [loading , setLoading]  = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await loginUser(username, password);
       const { user, accessToken } = response.data;
       dispatch(login({ user, accessToken }));
       toast.success('Logged in successfully!');
       navigate('/dashboard');
+      setLoading(false);
     } catch (error: any) {
-      const errorMessage = error.response?.data?.error || 'Login failed. Please check your credentials.';
+      console.log(error);
+      const errorMessage = error.response?.data?.error.message || 'Login failed. Please check your credentials.';
       toast.error(errorMessage);
     }
   };
@@ -55,7 +59,7 @@ const Login = () => {
             className="dark:bg-[#2c2f36] border-gray-700 "
           />
         </div>
-        <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">Login</Button>
+        <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">{loading ? "Logging in..." : "Login"}</Button>
       </form>
     </div>
   );
