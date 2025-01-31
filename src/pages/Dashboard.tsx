@@ -62,6 +62,7 @@ const Dashboard = () => {
   };
  
   return (
+    <>
     <div className="max-w-7xl mx-auto px-4 py-8">
       {loading ? (
         <Loader/>
@@ -183,10 +184,11 @@ const Dashboard = () => {
           </div>
         </>
       )}
-      {showPopupModal && <Createurl forUpdate={false} onClose={()=> { setShowPopupModal(false); refetchData();}}/>}
-      {showDeleteUrlModal && <DeleteUrl shortId={shortId} onClose= {()=> {setShowDeleteUrlModal(false);refetchData();}}/>}  
-      {showEditUrlModal && <Createurl forUpdate={true} shortId={shortId} onClose={() => { setShowEditUrlModal(false); refetchData(); }} />}
     </div>
+    {showPopupModal && <Createurl forUpdate={false} onClose={()=> { setShowPopupModal(false); refetchData();}}/>}
+    {showDeleteUrlModal && <DeleteUrl shortId={shortId} onClose= {()=> {setShowDeleteUrlModal(false);refetchData();}}/>}  
+    {showEditUrlModal && <Createurl forUpdate={true} shortId={shortId} onClose={() => { setShowEditUrlModal(false); refetchData(); }} />}
+    </>
   );
 };
 

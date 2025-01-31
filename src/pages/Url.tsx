@@ -61,7 +61,7 @@ const Url = () => {
                 <h2 className="text-bold text-start text-2xl flex items-center gap-4">{shortId} <Copy onClick={()=>handleCopy(shortId)} strokeWidth={1.5} size={18} className="hover:text-blue-500 font-bold"/></h2>
                 <p className="text-xs mt-3 text-gray-400">created at : {new Date(urldata?.fulldoc?.createdAt).toLocaleString()}</p>
               </div>
-              <QRcode data={url} size={150} />
+              <QRcode data={`${url+"-qr"}`} size={150} />
               <Button variant="default" size="sm" className="bg-rose-700 hover:bg-rose-800 mx-auto sm:w-[85%] h-8" onClick={handleEditQR}>Edit QRCode</Button>
              </div> 
             <div className="w-full md:ml-10 grid md:grid-cols-2 lg:gap-16 gap-6 p-4 ">
