@@ -71,15 +71,15 @@ const Home = () => {
       </section>
        {/* Results Section */}
        {shortUrl && (
-        <div className="max-w-2xl mx-auto mt-0 p-4 bg-white rounded-lg shadow-lg">
+        <div className="max-w-2xl mx-auto mt-0 p-4 bg-white dark:bg-slate-800 rounded-lg shadow-lg">
           <p className="text-lg font-semibold mb-2">Your shortened URL:</p>
           <a
-            href={`http://localhost:3001/${shortUrl}`}
+            href={`${import.meta.env.VITE_API_URL}/${shortUrl}`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-600 hover:underline break-all"
           >
-            {`http://localhost:3001/${shortUrl}`}
+            {`${import.meta.env.VITE_API_URL}/${shortUrl}`}
           </a>
           <Button
               variant="ghost"
@@ -89,6 +89,7 @@ const Home = () => {
             >
            <Copy className="w-4 h-4" />
            </Button>
+           <p className='text-white'>This is just a demo url(won't work),signup to unlock</p>
         </div>
       )}
       <section className="py-20 dark:bg-[#0f1117] bg-white relative mt-0 ">
@@ -217,7 +218,7 @@ const Home = () => {
   );
 };
 
-// Add these constants at the bottom of the file
+
 const features = [
   {
     title: "Link Analytics",
