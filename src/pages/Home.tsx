@@ -20,6 +20,7 @@ const Home = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if(!isAuthenticated) return toast.error("signup to generate url");
     try {
       const response = await shortenUrl(url);
       console.log(response.data.shortID);
@@ -89,7 +90,6 @@ const Home = () => {
             >
            <Copy className="w-4 h-4" />
            </Button>
-           <p className='text-white'>This is just a demo url(won't work),signup to unlock</p>
         </div>
       )}
       <section className="py-20 dark:bg-[#0f1117] bg-white relative mt-0 ">
